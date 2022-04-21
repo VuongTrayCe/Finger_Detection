@@ -5,12 +5,7 @@ from HandTrackingModule import handDetector
 
 class ScreenManager(object):
 
-    def __init__(self, capture, previewWindowManager=None,
-                 shouldMirrorPreview=False):
-
-        self.previewWindowManager = previewWindowManager
-        self.shouldMirrorPreview = shouldMirrorPreview
-
+    def __init__(self, capture):
         self._capture = capture
         self._channel = 0
         self._enteredFrame = False
@@ -35,7 +30,7 @@ class ScreenManager(object):
     def frame(self):
         if self._enteredFrame and self._frame is None:
             _, self._frame = self._capture.retrieve()
-            # self._frame, self.channel)
+            
         return self._frame
 
     def displayHandCounter(self, img):
@@ -64,9 +59,6 @@ class ScreenManager(object):
         """Capture the next frame, if any."""
 
         # But first, check that any previous frame was exited.
-        assert not self._enteredFrame, \
-            'previous enterFrame() had no matching exitFrame()'
-
         if self._capture is not None:
             self._enteredFrame = self._capture.grab()
 

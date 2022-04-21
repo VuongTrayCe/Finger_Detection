@@ -9,7 +9,7 @@ class Main(object):
         self._windowManager = WindowManager('Cameo',
                                             self.onKeypress)
         self._ScreenManager = ScreenManager(
-            cv2.VideoCapture(0), self._windowManager, True)
+            cv2.VideoCapture(0))
 
     def run(self):
         """Run the main loop."""
