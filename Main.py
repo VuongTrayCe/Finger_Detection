@@ -1,8 +1,11 @@
 from turtle import onkeypress
 import cv2
+from face_detection import face_detection
+from FaceMeshTrackingModule import FaceMeshTrackingModule
 from manager2 import WindowManager, \
     ScreenManager
-
+face_cascade = cv2.CascadeClassifier('./cascades/haarcascade_frontalface_alt.xml')
+eye_cascade = cv2.CascadeClassifier('./cascades/haarcascade_eye_tree_eyeglasses.xml')
 class Main(object):
 
     def __init__(self):
@@ -10,6 +13,9 @@ class Main(object):
                                             self.onKeypress)
         self._ScreenManager = ScreenManager(
             cv2.VideoCapture(0))
+        self._faceDetection = face_detection(face_cascade,eye_cascade)
+        self._faceMesh = FaceMeshTrackingModule()
+        self.couter = 0
 
     def run(self):
         """Run the main loop."""
@@ -17,8 +23,12 @@ class Main(object):
         while self._windowManager.isWindowCreated:
             self._ScreenManager.enterFrame()
             frame = self._ScreenManager.frame
-            frame = self._ScreenManager.displayHandCounter(frame)
+            frame = self._ScreenManager.display(frame)
+            # frame = self._faceMesh.FaceMeshDetector(frame)
+            # frame = self._faceDetection.ImageHandling(frame)
             
+
+
 
             if frame is not None:
                 # TODO: Filter the frame (Chapter 3).

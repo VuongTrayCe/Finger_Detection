@@ -6,16 +6,16 @@ import time
 class handDetector():
     def __init__(self):
         self.mpHands = mp.solutions.hands
-        self.hands = self.mpHands.Hands()
+        self.hands = self.mpHands.Hands(max_num_hands =4)
         self.mp_draw = mp.solutions.drawing_utils
         
         
-    def findHand(self,img):
+    def findHand(self,img):  # tìm số bàn tay được phát hiện
         img_RGB = cv2.cvtColor(img,cv2.COLOR_BGR2RGB)
         self.result = self.hands.process(img_RGB)
         i = 0
         if self.result.multi_hand_landmarks:
-          for hand_landmarks in self.result.multi_hand_landmarks:  # đi qua từng cột mốc để nối lại
+          for hand_landmarks in self.result.multi_hand_landmarks: 
             index = [4,8,12,16,20]
             for id,lm in enumerate(hand_landmarks.landmark):
                 h,w,c = img.shape
@@ -27,7 +27,7 @@ class handDetector():
                             
             self.mp_draw.draw_landmarks(img,hand_landmarks,self.mpHands.HAND_CONNECTIONS)
             i = i+1
-        
+        print(i)       
         return img,i
     
     def findPosition(self,img,handIndex=0):

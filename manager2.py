@@ -1,7 +1,7 @@
 from tkinter import font
 import cv2
+from FaceMeshTrackingModule import FaceMeshTrackingModule
 from HandTrackingModule import handDetector
-
 
 class ScreenManager(object):
 
@@ -10,11 +10,8 @@ class ScreenManager(object):
         self._channel = 0
         self._enteredFrame = False
         self._frame = None
-
-        self._startTime = None
-        self._framesElapsed = 0
-        self._fpsEstimate = None
         self._handTracking = handDetector()
+        self._faceMesh = FaceMeshTrackingModule()
 
     @property
     def channel(self):
@@ -33,7 +30,7 @@ class ScreenManager(object):
             
         return self._frame
 
-    def displayHandCounter(self, img):
+    def display(self, img):
         img, index = self._handTracking.findHand(img)
         list = []
         count = []
@@ -51,8 +48,9 @@ class ScreenManager(object):
                 if list[index[id]][2] < list[index2[id]][2]:
                     count.append(1)
 
-        img = cv2.putText(img, f'Finger Number: {len(count)}', (
+        img = cv2.putText(img, f'Number of fingers: {len(count)}', (
             10, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2)
+        img =self._faceMesh.FaceMeshDetector(img)
         return img
 
     def enterFrame(self):

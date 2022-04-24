@@ -5,9 +5,9 @@ import numpy as np
 
 
 class face_detection:
-       def __init__(self,face_cascade,eye_caseade):
+       def __init__(self,face_cascade,eye_cascade):
          self.face_cascade=face_cascade
-         self.eye_caseade = eye_caseade
+         self.eye_cascade = eye_cascade
          self.image = None
          self.face_list = None
          self.eye_rects = None
@@ -24,16 +24,26 @@ class face_detection:
        
        
        def ImageHandling(self,image):
-           faces = self.face_detection_function(image)
+           count = 0
            gray_image = cv2.cvtColor(image,cv2.COLOR_BGR2GRAY)
+           gray_image = cv2.bilateralFilter(gray_image,5,1,1)
+           faces = self.face_detection_function(image)
            for (x,y,w,h) in faces:
               image =  cv2.rectangle(image, (x,y), (x+w,y+h), (0,255,0), 3)
               eye_gray = gray_image[y:y+int(h/2), x:x+w] 
               eye_color = image[y:y+int(h/2), x:x+w]
-              eyes = self.eye_cascade.detectMultiScale(eye_gray) 
-              for (ex,ey,ew,eh) in eyes: 
+              eyes = self.eye_cascade.detectMultiScale(eye_gray)
+              if len(eyes)>= 2:
+                 
+                for (ex,ey,ew,eh) in eyes: 
                   cv2.rectangle(eye_color,(ex,ey),(ex+ew,ey+eh),(0,127,255),2)
-                  
+                flag = True
+              else:
+                flag = False
+              
+              if flag == False:
+                count +=1
+                
            return image
              
          
