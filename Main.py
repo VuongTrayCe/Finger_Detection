@@ -2,25 +2,25 @@ from turtle import onkeypress
 import cv2
 from face_detection import face_detection
 from FaceMeshTrackingModule import FaceMeshTrackingModule
-from manager2 import WindowManager, \
+from manager import WindowManager, \
     ScreenManager
 face_cascade = cv2.CascadeClassifier('./cascades/haarcascade_frontalface_alt.xml')
 eye_cascade = cv2.CascadeClassifier('./cascades/haarcascade_eye_tree_eyeglasses.xml')
 class Main(object):
 
-    def __init__(self):
-        self._windowManager = WindowManager('Cameo',
+    def __init__(self): 
+        self._windowManager = WindowManager('I Love You',
                                             self.onKeypress)
         self._ScreenManager = ScreenManager(
             cv2.VideoCapture(0))
         self._faceDetection = face_detection(face_cascade,eye_cascade)
         self._faceMesh = FaceMeshTrackingModule()
-        self.couter = 0
+        self.counter = 0
 
     def run(self):
         """Run the main loop."""
-        self._windowManager.createWindow()
-        while self._windowManager.isWindowCreated:
+        self._windowManager.createWindow()  # Tạo cửa số
+        while self._windowManager.isWindowCreated:  # Hiển thị frame đọc được và gọi đến các hàm xử lý bàn tay, nụ cười
             self._ScreenManager.enterFrame()
             frame = self._ScreenManager.frame
             frame = self._ScreenManager.display(frame)
@@ -43,7 +43,7 @@ class Main(object):
 
     def onKeypress(self, keycode):
         """Handle a keypress.
-        escape -> Quit.
+        escape -> Quit.3
         """
         if keycode == 27:  # space
             self._windowManager.destroyWindow()
