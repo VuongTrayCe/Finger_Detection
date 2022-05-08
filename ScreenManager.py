@@ -1,6 +1,6 @@
 import cv2
 from FaceMeshTrackingModule import FaceMeshTrackingModule
-from HandTrackingModule import handDetector
+from HandTrackingModule import HandTrackingModule
 from face_detection import face_detection
 face_cascade = cv2.CascadeClassifier('./cascades/haarcascade_frontalface_alt.xml')
 eye_cascade = cv2.CascadeClassifier('./cascades/haarcascade_eye_tree_eyeglasses.xml')
@@ -10,7 +10,7 @@ class ScreenManager(object):  # Class quản lý màn hình
         self._capture = capture    # Đây là đối tượng Videocapture
         self._enteredFrame = False    # thuộc tính Kiểm tra xem có đọc đc frame tiếp theo ko
         self._frame = None            # thuộc tính sẽ lưu frame chụp được. và nó là hình ảnh để hiển thị ra cửa số
-        self._handTracking = handDetector()   #  Đối tượng để phát hiện và xử lý bàn tay
+        self._handTracking = HandTrackingModule()   #  Đối tượng để phát hiện và xử lý bàn tay
         self._faceMesh = FaceMeshTrackingModule()  # Đối tượng để phát hiện FaceMesh và xử lý nụ cười
         self.facedetect = face_detection(face_cascade,eye_cascade)
         self.smile_count = None
@@ -68,30 +68,30 @@ class ScreenManager(object):  # Class quản lý màn hình
 
 
 
-class WindowManager(object):     # Class quản lý cửa só của chúng ta
+# class WindowManager(object):     # Class quản lý cửa só của chúng ta
 
-    def __init__(self, windowName, keypressCallback=None):
-        self.keypressCallback = keypressCallback
+#     def __init__(self, windowName, keypressCallback=None):
+#         self.keypressCallback = keypressCallback
 
-        self._windowName = windowName
-        self._isWindowCreated = False
+#         self._windowName = windowName
+#         self._isWindowCreated = False
 
-    @property
-    def isWindowCreated(self):   # Hàm trả về giá trị bool kiểm tra xem cửa sổ đã tạo chưa
-        return self._isWindowCreated
+#     @property
+#     def isWindowCreated(self):   # Hàm trả về giá trị bool kiểm tra xem cửa sổ đã tạo chưa
+#         return self._isWindowCreated
 
-    def createWindow(self):     # Hàm tạo cửa số window
-        cv2.namedWindow(self._windowName)
-        self._isWindowCreated = True
+#     def createWindow(self):     # Hàm tạo cửa số window
+#         cv2.namedWindow(self._windowName)
+#         self._isWindowCreated = True
 
-    def show(self, frame):       # Hàm hiển thị frame lên cửa số 
-        cv2.imshow(self._windowName, frame)
+#     def show(self, frame):       # Hàm hiển thị frame lên cửa số 
+#         cv2.imshow(self._windowName, frame)
 
-    def destroyWindow(self):     # Đóng tất cã cửa số => thoát chương trình
-        cv2.destroyWindow(self._windowName)
-        self._isWindowCreated = False
+#     def destroyWindow(self):     # Đóng tất cã cửa số => thoát chương trình
+#         cv2.destroyWindow(self._windowName)
+#         self._isWindowCreated = False
 
-    def processEvents(self):    # Hàm xử lý sự kiện
-        keycode = cv2.waitKey(1)
-        if self.keypressCallback is not None and keycode != -1:
-            self.keypressCallback(keycode)
+#     def processEvents(self):    # Hàm xử lý sự kiện
+#         keycode = cv2.waitKey(1)
+#         if self.keypressCallback is not None and keycode != -1:
+#             self.keypressCallback(keycode)

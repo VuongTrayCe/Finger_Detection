@@ -2,8 +2,9 @@ from turtle import onkeypress
 import cv2
 from face_detection import face_detection
 from FaceMeshTrackingModule import FaceMeshTrackingModule
-from manager import WindowManager, \
-    ScreenManager
+# from ScreenManager import WindowManager, \
+from ScreenManager import ScreenManager
+from WindowManager import WindowManager
 face_cascade = cv2.CascadeClassifier('./cascades/haarcascade_frontalface_alt.xml')
 eye_cascade = cv2.CascadeClassifier('./cascades/haarcascade_eye_tree_eyeglasses.xml')
 class Main(object):
@@ -40,7 +41,6 @@ class Main(object):
             # self.onKeypress(self.keycode)
          
             
-
     def onKeypress(self, keycode):
         """Handle a keypress.
         escape -> Quit.3

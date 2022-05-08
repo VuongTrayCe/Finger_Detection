@@ -10,10 +10,10 @@ class face_detection:  # class phát hiện khuôn mặt
          self.eye_cascade = eye_cascade
          self.image = None
          self.face_list = None
-         self.eye_rects = None
-         self.eye_gray = None
-         self.eye_color = None
-         self.eye_list = None
+        #  self.eye_rects = None
+        #  self.eye_gray = None
+        #  self.eye_color = None
+        #  self.eye_list = None
       
       
        def face_detection_function(self,image):  # trả về số khuôn mặt được phát hiện

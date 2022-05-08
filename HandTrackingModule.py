@@ -1,7 +1,7 @@
 import mediapipe as mp
 import cv2  
  
-class handDetector():
+class HandTrackingModule():
     def __init__(self):
         self.mpHands = mp.solutions.hands  # Sử dụng giải pháp hand
         self.hands = self.mpHands.Hands(max_num_hands =4)   # tạo đối tượng để xử lý bàn tay
