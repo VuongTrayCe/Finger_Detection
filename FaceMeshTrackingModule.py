@@ -30,8 +30,8 @@ class FaceMeshTrackingModule:
               self.mesh_point =np.array([np.multiply([p.x,p.y],[image_w,image_h]).astype(int) for p in landmarks.landmark])
             #   cv2.polylines(image,[self.mesh_point[LEFT]],True,(0,255,0),1,cv2.LINE_AA)
             #   cv2.polylines(image,[self.mesh_point[RIGHT]],True,(0,255,0),1,cv2.LINE_AA)
-              cv2.polylines(image,[self.mesh_point[CENTER]],True,(0,255,0),1,cv2.LINE_AA)
-              cv2.polylines(image,[self.mesh_point[moi]],True,(0,255,0),1,cv2.LINE_AA)
+            #   cv2.polylines(image,[self.mesh_point[CENTER]],True,(0,255,0),1,cv2.LINE_AA)
+            #   cv2.polylines(image,[self.mesh_point[moi]],True,(0,255,0),1,cv2.LINE_AA)
               arr.append(self.mesh_point)
               # Các điểm dùng để xét điều kiện xem đang cười hay ko
               a = self.mesh_point[13]
