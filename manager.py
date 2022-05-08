@@ -27,7 +27,7 @@ class ScreenManager(object):  # Class quản lý màn hình
 
         # list = []
         count = []  # Mảng dùng để lưu số ngón tay được phát hiện từ bàn táy
-        count = self._handTracking.finger_Counter(img,index)
+        count,flag = self._handTracking.finger_Counter(img,index)
         # for i in range(0, index):
         #     list = self._handTracking.findPosition(img, i)  # Dựa vào index để tìm ra 21 điểm của bàn tay có chỉ số đó
         #     # Đây là các mốc quan trọng (Ở đầu mút ngón tay và ở các khớp)
@@ -43,8 +43,12 @@ class ScreenManager(object):  # Class quản lý màn hình
         #     for id in range(1, 5):
         #         if list[index[id]][2] < list[index2[id]][2]:
         #             count.append(1)
-        # In kết quả lên hình ảnh 
-        cv2.putText(img, f'Number of fingers: {len(count)}', (10, 50), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (255, 0, 0), 2)
+        # In kết quả lên hình ảnh
+        if flag is True:         
+           cv2.putText(img, f'Number of fingers: {len(count)}', (10, 50), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (255, 0, 0), 2)
+        else:
+           cv2.putText(img, f'Vui long giu ban tay thang dung', (10, 50), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (255, 0, 0), 2)
+
         img,self.smile_count =self._faceMesh.FaceMeshDetector(img)
         cv2.putText(img, f'Number of smiling faces: {self.smile_count}', (10, 90), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (255, 0, 0), 2)
         img,face_count = self.facedetect.ImageHandling(img)

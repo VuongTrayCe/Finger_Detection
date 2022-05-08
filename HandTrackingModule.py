@@ -44,19 +44,25 @@ class handDetector():
     def finger_Counter(self,img,index):
         list = []
         count = []
+        flag = False
         for i in range(0, index):
             list = self.findPosition(img, i)  # Dựa vào index để tìm ra 21 điểm của bàn tay có chỉ số đó
             # Đây là các mốc quan trọng (Ở đầu mút ngón tay và ở các khớp)
             index = [4, 8, 12, 16, 20]
             index2 = [3, 6, 10, 14, 18]
             # Kiểm tra só ngón tay đc phát hiển
-            if list[0][1] > list[1][1]:
+            if list[0][2] > list[1][2] and ((list[0][1] > list[5][1] and list[0][1] < list[17][1]) or (list[0][1] < list[5][1] and list[0][1] > list[17][1])):
+                
+              if list[0][1] > list[1][1]:
                 if list[index[0]][1] < list[index[0]-1][1]:
                     count.append(1)
-            else:
+              else:
                 if list[index[0]][1] > list[index[0]-1][1]:
                     count.append(1)
-            for id in range(1, 5):
+              for id in range(1, 5):
                 if list[index[id]][2] < list[index2[id]][2]:
                     count.append(1)
-        return count
+              flag = True
+            else:
+                flag= False
+        return count,flag
