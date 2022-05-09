@@ -13,7 +13,6 @@ class ScreenManager(object):  # Class quản lý màn hình
         self._handTracking = HandTrackingModule()   #  Đối tượng để phát hiện và xử lý bàn tay
         self._faceMesh = FaceMeshTrackingModule()  # Đối tượng để phát hiện FaceMesh và xử lý nụ cười
         self.facedetect = face_detection(face_cascade,eye_cascade)
-        self.smile_count = None
 
     @property
     def frame(self):         # function này sẽ trả về một frame mới
